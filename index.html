@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.Quân | Giới thiệu bản thân - Capstone 2026</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono (Hỗ trợ Tiếng Việt cực đẹp) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 5s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-6px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .bento-card {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .bento-card:hover {
+            transform: translateY(-4px);
+        }
+        .pitch-highlight {
+            outline: 3px solid #06b6d4 !important;
+            box-shadow: 0 0 40px -5px rgba(6, 182, 212, 0.45) !important;
+            transform: scale(1.01) !important;
+            z-index: 20;
+        }
+        .bg-grid-pattern {
+            background-size: 32px 32px;
+            background-image: 
+                linear-gradient(to right, rgba(148, 163, 184, 0.07) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans min-h-screen relative selection:bg-cyan-500 selection:text-white transition-colors duration-300 bg-grid-pattern overflow-x-hidden">
+
+    <!-- Liên kết bỏ qua điều hướng chuẩn Accessibility (WCAG) -->
+    <a href="#gioi-thieu" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-cyan-500 focus:text-slate-950 focus:font-bold focus:rounded-xl">
+        Chuyển đến nội dung chính
+    </a>
+
+    <!-- Hiệu ứng ánh sáng nền -->
+    <div class="fixed top-[-10%] left-[-10%] w-96 h-96 bg-cyan-500/15 dark:bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-96 h-96 bg-indigo-500/15 dark:bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- 1. THANH ĐIỀU HƯỚNG (NAVBAR) -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-white/80 dark:bg-slate-900/80 border-b border-slate-200/80 dark:border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+            <!-- Logo M.Quân + Badge Capstone 2026 -->
+            <a href="#" class="flex items-center gap-2.5 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center text-white font-extrabold text-base shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition">
+                    MQ
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="font-extrabold tracking-tight text-base sm:text-lg text-slate-900 dark:text-white">M.Quân</span>
+                    <span class="text-[11px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-700 dark:text-amber-300 border border-amber-400/30 font-semibold">
+                        Capstone 2026
+                    </span>
+                </div>
+            </a>
+
+            <!-- Menu Điều hướng -->
+            <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                <a href="#gioi-thieu" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition" data-i18n="navIntro">Giới thiệu</a>
+                <a href="#ky-nang" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition" data-i18n="navSkills">Kỹ năng</a>
+                <a href="#muc-tieu-capstone" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition" data-i18n="navGoals">Mục tiêu Capstone</a>
+                <a href="#ngoai-gio-hoc" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition" data-i18n="navHobbies">Ngoài giờ học</a>
+            </nav>
+
+            <!-- Nhóm nút chức năng -->
+            <div class="flex items-center gap-2">
+                <!-- Nút Ghi chú nộp bài -->
+                <button onclick="toggleSubmissionModal(true)" class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-200/80 dark:bg-slate-800/90 hover:bg-slate-300/80 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition">
+                    <i class="ph-bold ph-notepad text-base text-cyan-500"></i>
+                    <span class="hidden sm:inline" data-i18n="btnSubmissionNote">Ghi chú nộp bài</span>
+                </button>
+
+                <!-- Nút Thuyết trình 90s -->
+                <button id="pitchBtn" onclick="togglePitchMode()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-md shadow-cyan-500/20 hover:opacity-95 active:scale-95 transition">
+                    <i id="pitchIcon" class="ph-fill ph-play-circle text-lg"></i>
+                    <span id="pitchBtnText" data-i18n="btnStartPitch">Thuyết trình 90s</span>
+                </button>
+
+                <!-- Nút chuyển đổi ngôn ngữ VI / EN -->
+                <button onclick="toggleLanguage()" class="px-2.5 py-2 rounded-xl text-xs font-mono font-bold bg-slate-200/80 dark:bg-slate-800/90 hover:bg-slate-300 dark:hover:bg-slate-700 transition flex items-center gap-1" title="Chuyển đổi ngôn ngữ VI / EN">
+                    <i class="ph-bold ph-translate text-sm text-indigo-500 dark:text-indigo-400"></i>
+                    <span id="langLabel">VI</span>
+                </button>
+
+                <!-- Nút chế độ Sáng / Tối -->
+                <button onclick="toggleTheme()" class="p-2 rounded-xl bg-slate-200/80 dark:bg-slate-800/90 hover:bg-slate-300 dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200" aria-label="Đổi giao diện Sáng/Tối">
+                    <i id="themeIcon" class="ph-fill ph-sun text-lg text-amber-400"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Thanh trạng thái khi chạy chế độ Thuyết trình 90s -->
+        <div id="pitchBanner" class="hidden bg-slate-900 text-white border-b border-cyan-500/30 px-4 py-2.5">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+                    <span class="font-mono uppercase text-cyan-400 font-bold" id="pitchStepLabel">Phần 1/4: Giới thiệu bản thân</span>
+                    <span class="text-slate-200 hidden md:inline" id="pitchNarrator">Xin chào! Mình là Minh Quân, sinh viên Thương mại Điện tử & Công nghệ Số tại Hà Nội.</span>
+                </div>
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <div class="w-full sm:w-44 h-1.5 bg-slate-700 rounded-full overflow-hidden">
+                        <div id="pitchProgress" class="h-full bg-gradient-to-r from-cyan-400 to-indigo-500 transition-all duration-300" style="width: 25%"></div>
+                    </div>
+                    <button onclick="nextPitchStep()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 font-mono whitespace-nowrap">
+                        Tiếp theo <i class="ph-bold ph-caret-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NỘI DUNG CHÍNH (BENTO GRID) -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+
+        <!-- 2. PHẦN HERO & BENTO GRID GIỚI THIỆU -->
+        <div id="gioi-thieu" class="grid grid-cols-1 lg:grid-cols-12 gap-6 scroll-mt-20">
+            
+            <!-- Thẻ chính (8 cột) -->
+            <section id="card-hero" class="bento-card lg:col-span-8 rounded-3xl p-6 sm:p-8 bg-white/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-xl flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <!-- Badge khóa học -->
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-700 dark:text-cyan-300 text-xs font-semibold mb-5">
+                        <i class="ph-fill ph-graduation-cap text-base"></i>
+                        <span data-i18n="heroBadge">Khóa học Thiết kế Web cho Mọi người • Dự án Cuối khóa</span>
+                    </div>
+
+                    <!-- Tiêu đề & Phụ đề -->
+                    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight" data-i18n="heroTitle">
+                        Xin chào, mình là Minh Quân.
+                    </h1>
+                    <p class="text-base sm:text-xl font-semibold text-cyan-600 dark:text-cyan-400 mt-2" data-i18n="heroSubtitle">
+                        Sinh viên Thương mại Điện tử &amp; Công nghệ Số tại Hà Nội, Việt Nam.
+                    </p>
+
+                    <!-- Mô tả -->
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base mt-4 max-w-3xl" data-i18n="heroDesc">
+                        Đam mê kết hợp giữa tư duy phân tích kinh doanh (Business Analysis), dữ liệu và giao diện web hiện đại, chuẩn khả năng tiếp cận (Accessibility). Trang web tương tác này được mình thiết kế dành riêng cho bài tập <strong>Giới thiệu bản thân (&lt; 3 phút)</strong> với tiêu chí trực quan, súc tích và bảo mật thông tin cá nhân.
+                    </p>
+                </div>
+
+                <!-- Các thẻ tag nhỏ -->
+                <div class="flex flex-wrap items-center gap-2.5 pt-6 mt-6 border-t border-slate-200/70 dark:border-slate-800/80">
+                    <span class="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-medium border border-slate-200/60 dark:border-slate-700/60" data-i18n="tagLocation">
+                        📍 Hà Nội, Việt Nam
+                    </span>
+                    <span class="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-medium border border-slate-200/60 dark:border-slate-700/60" data-i18n="tagMajor">
+                        🎓 Thương mại điện tử &amp; Công nghệ
+                    </span>
+                    <span class="px-3.5 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-xs sm:text-sm font-medium border border-emerald-500/20" data-i18n="tagPrivacy">
+                        🔒 Hồ sơ bảo mật (Privacy-Safe)
+                    </span>
+                </div>
+            </section>
+
+            <!-- Thẻ Avatar & Trạng thái (4 cột) -->
+            <section id="card-avatar" class="bento-card lg:col-span-4 rounded-3xl p-6 sm:p-7 bg-gradient-to-b from-slate-900 via-slate-900 to-indigo-950 text-white border border-slate-800 shadow-xl flex flex-col items-center text-center justify-between">
+                <!-- Vector Avatar hiện đại, lịch sự -->
+                <div class="relative mt-1">
+                    <div class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-cyan-500 via-blue-500 to-indigo-600 p-1 shadow-xl shadow-cyan-500/20 animate-float">
+                        <div class="w-full h-full bg-slate-950 rounded-[20px] flex items-center justify-center">
+                            <svg class="w-16 h-16 text-cyan-400" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar Vector Minh Quân">
+                                <circle cx="32" cy="22" r="10" stroke="currentColor" stroke-width="3"/>
+                                <path d="M14 52C14 42.0589 22.0589 34 32 34C41.9411 34 50 42.0589 50 52" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                <path d="M23 21L27 23L23 25" stroke="#FFCB05" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M41 21L37 23L41 25" stroke="#FFCB05" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-4 border-slate-900" title="Trực tuyến"></span>
+                </div>
+
+                <!-- Trạng thái thực hiện bài tập -->
+                <div class="my-4 w-full">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-cyan-300 text-xs font-mono mb-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span data-i18n="statusBadge">Trạng thái học tập</span>
+                    </div>
+                    <p class="text-xs sm:text-sm font-medium text-slate-200 bg-slate-950/60 border border-slate-800 rounded-2xl p-3 leading-relaxed" data-i18n="statusText">
+                        Đang thực hiện: Bài tập Giới thiệu bản thân (&lt; 3 phút)
+                    </p>
+                </div>
+
+                <!-- Nút tương tác Gửi lời chào -->
+                <div class="w-full space-y-2.5">
+                    <button onclick="sendWaveGreeting()" class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold text-sm shadow-lg shadow-cyan-500/20 active:scale-95 transition flex items-center justify-center gap-2">
+                        <span data-i18n="waveBtnText">Gửi lời chào 👋</span>
+                        <span id="waveBadge" class="px-2 py-0.5 rounded-full bg-slate-950/40 text-xs font-mono">28</span>
+                    </button>
+                    <p id="waveToast" class="text-xs text-cyan-300 font-medium min-h-[18px] opacity-0 transition-opacity duration-300">
+                        Cảm ơn bạn đã ghé thăm và gửi lời chào! 🌟
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <!-- 3. PHẦN KỸ NĂNG & CÔNG CỤ (CHUYÊN MÔN VIỆT HÓA HOÀN TOÀN) -->
+        <section id="ky-nang" class="bento-card rounded-3xl p-6 sm:p-8 bg-white/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-xl scroll-mt-20">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                <div>
+                    <span class="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-bold">
+                        <i class="ph-fill ph-code-block"></i>
+                        <span data-i18n="skillsSectionBadge">Kỹ năng &amp; Công cụ chuyên môn</span>
+                    </span>
+                    <h2 class="text-2xl font-extrabold mt-2 text-slate-900 dark:text-white" data-i18n="skillsSectionTitle">
+                        Nền tảng Kỹ thuật &amp; Phân tích Nghiệp vụ
+                    </h2>
+                </div>
+                <span class="text-xs font-mono text-slate-500 dark:text-slate-400" data-i18n="skillsSectionSub">
+                    Kết hợp Công nghệ Web &amp; Thương mại Điện tử
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <!-- Nhóm kỹ năng 1: Phát triển Web Chuẩn Mực -->
+                <div class="p-5 rounded-2xl bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex flex-col justify-between">
+                    <div>
+                        <div class="w-11 h-11 rounded-xl bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl mb-4">
+                            <i class="ph-fill ph-browsers"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2" data-i18n="skillCard1Title">
+                            Phát triển Web Chuẩn Mực
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="skillCard1Desc">
+                            HTML5 Ngữ nghĩa (Semantic), CSS3 Hiện đại (Grid/Flexbox), Thiết kế Đáp ứng (Responsive), Tiêu chuẩn Tiếp cận W3C (WCAG).
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700/70 flex flex-wrap gap-1.5">
+                        <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-700 dark:text-cyan-300">Semantic HTML5</span>
+                        <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-700 dark:text-cyan-300">CSS Grid/Flex</span>
+                        <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-700 dark:text-cyan-300">WCAG A11y</span>
+                    </div>
+                </div>
+
+                <!-- Nhóm kỹ năng 2: Thương mại Điện tử & Phân tích -->
+                <div class="p-5 rounded-2xl bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex flex-col justify-between">
+                    <div>
+                        <div class="w-11 h-11 rounded-xl bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl mb-4">
+                            <i class="ph-fill ph-chart-line-up"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2" data-i18n="skillCard2Title">
+                            Thương mại Điện tử &amp; Phân tích
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="skillCard2Desc">
+                            Phân tích Quy trình Kinh doanh (BPMN, Use Case), Trực quan hóa Dữ liệu (Python, SQL), Tối ưu Trải nghiệm Người dùng (UI/UX).
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700/70 flex flex-wrap gap-1.5">
+                        <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-700 dark:text-indigo-300">BPMN &amp; Use Case</span>
+                        <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-700 dark:text-indigo-300">Python &amp; SQL</span>
+                        <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-700 dark:text-indigo-300">E-Commerce UX</span>
+                    </div>
+                </div>
+
+                <!-- Nhóm kỹ năng 3: Nền tảng Lập trình -->
+                <div class="p-5 rounded-2xl bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex flex-col justify-between">
+                    <div>
+                        <div class="w-11 h-11 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl mb-4">
+                            <i class="ph-fill ph-terminal-window"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2" data-i18n="skillCard3Title">
+                            Nền tảng Lập trình
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="skillCard3Desc">
+                            Tư duy thuật toán C++, Python, JavaScript tương tác. Xây dựng cấu trúc mã nguồn rõ ràng, dễ bảo trì và tối ưu hiệu năng.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700/70 flex flex-wrap gap-1.5">
+                        <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">JavaScript ES6+</span>
+                        <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">Python</span>
+                        <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">C++ Algorithms</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PHẦN MỤC TIÊU DỰ ÁN CAPSTONE & 5. PHẦN SỞ THÍCH NGOÀI GIỜ HỌC -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Mục tiêu Dự án Capstone (7 cột) -->
+            <section id="muc-tieu-capstone" class="bento-card lg:col-span-7 rounded-3xl p-6 sm:p-8 bg-white/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-xl flex flex-col justify-between scroll-mt-20">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold">
+                            <i class="ph-fill ph-rocket-launch"></i>
+                            <span data-i18n="capstoneBadge">Định hướng Đồ án Cuối khóa</span>
+                        </span>
+                        <span class="text-xs font-mono text-slate-400">University of Michigan Standards</span>
+                    </div>
+
+                    <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white mb-5" data-i18n="capstoneTitle">
+                        Kế hoạch Dự án Capstone của mình
+                    </h2>
+
+                    <!-- 3 Trụ cột chính -->
+                    <div class="space-y-4">
+                        <!-- Trụ cột 1 -->
+                        <div class="p-4 rounded-2xl bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex items-start gap-3.5">
+                            <div class="w-9 h-9 rounded-xl bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 font-bold flex items-center justify-center shrink-0 mt-0.5">
+                                1
+                            </div>
+                            <div>
+                                <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white" data-i18n="pillar1Title">
+                                    Chuẩn Ngữ nghĩa &amp; Tiếp cận (Accessibility)
+                                </h3>
+                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="pillar1Desc">
+                                    Đảm bảo 100% hỗ trợ đọc màn hình, điều hướng bàn phím và độ tương phản chuẩn quốc tế.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Trụ cột 2 -->
+                        <div class="p-4 rounded-2xl bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex items-start gap-3.5">
+                            <div class="w-9 h-9 rounded-xl bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 font-bold flex items-center justify-center shrink-0 mt-0.5">
+                                2
+                            </div>
+                            <div>
+                                <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white" data-i18n="pillar2Title">
+                                    Trải nghiệm Đa thiết bị (Mobile-First)
+                                </h3>
+                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="pillar2Desc">
+                                    Tối ưu hóa bố cục mượt mà từ điện thoại thông minh, máy tính bảng đến màn hình lớn.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Trụ cột 3 -->
+                        <div class="p-4 rounded-2xl bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex items-start gap-3.5">
+                            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold flex items-center justify-center shrink-0 mt-0.5">
+                                3
+                            </div>
+                            <div>
+                                <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white" data-i18n="pillar3Title">
+                                    Ứng dụng Thương mại Điện tử
+                                </h3>
+                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="pillar3Desc">
+                                    Xây dựng giao diện trưng bày sản phẩm trực quan, tốc độ tải nhanh và thân thiện với người dùng.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sở thích & Phong cách sống Ngoài giờ học (5 cột) -->
+            <section id="ngoai-gio-hoc" class="bento-card lg:col-span-5 rounded-3xl p-6 sm:p-8 bg-white/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-xl flex flex-col justify-between scroll-mt-20">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold">
+                            <i class="ph-fill ph-sparkle"></i>
+                            <span data-i18n="hobbyBadge">Ngoài giờ học</span>
+                        </span>
+                        <span class="text-xs text-slate-400" data-i18n="hobbySub">Cân bằng &amp; Kỷ luật</span>
+                    </div>
+
+                    <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white mb-5" data-i18n="hobbyTitle">
+                        Sở thích &amp; Phong cách sống
+                    </h2>
+
+                    <div class="space-y-4">
+                        <!-- Sở thích 1: Rèn luyện Thể hình -->
+                        <div class="p-4 rounded-2xl bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex items-start gap-3.5">
+                            <div class="w-11 h-11 rounded-xl bg-rose-500/15 text-rose-500 flex items-center justify-center text-2xl shrink-0">
+                                <i class="ph-fill ph-barbell"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white" data-i18n="hobby1Title">
+                                    Rèn luyện Thể hình (Gym &amp; Fitness)
+                                </h3>
+                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="hobby1Desc">
+                                    Duy trì kỷ luật tập luyện 4 buổi/tuần, đề cao sự kiên trì và cân bằng năng lượng cho những giờ lập trình chuyên sâu.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Sở thích 2: Cờ tướng & Cờ vua -->
+                        <div class="p-4 rounded-2xl bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex items-start gap-3.5">
+                            <div class="w-11 h-11 rounded-xl bg-amber-500/15 text-amber-500 flex items-center justify-center text-2xl shrink-0">
+                                <i class="ph-fill ph-strategy"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white" data-i18n="hobby2Title">
+                                    Cờ tướng &amp; Cờ vua
+                                </h3>
+                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="hobby2Desc">
+                                    Rèn luyện tư duy chiến thuật, khả năng nhìn nhận toàn cục và phân tích tình huống logic.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Châm ngôn cá nhân -->
+                <div class="mt-5 px-4 py-3 rounded-2xl bg-gradient-to-r from-cyan-500/10 to-indigo-500/10 border border-cyan-500/20 text-xs sm:text-sm text-slate-700 dark:text-slate-200 font-medium flex items-center gap-2.5">
+                    <i class="ph-fill ph-quotes text-cyan-500 text-lg shrink-0"></i>
+                    <span data-i18n="hobbyQuote">"Kỷ luật trong rèn luyện thể chất và tư duy chiến thuật chính là nền tảng để tạo ra những sản phẩm số chất lượng."</span>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- CHÂN TRANG (FOOTER) -->
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 mt-6 border-t border-slate-200/70 dark:border-slate-800/80 text-xs text-slate-500 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div>
+            <span class="font-bold text-slate-700 dark:text-slate-200">M.Quân (Capstone 2026)</span> • <span data-i18n="footerNote">Thiết kế cho Bài tập Giới thiệu bản thân - Khóa học Thiết kế Web cho Mọi người</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <button onclick="toggleSubmissionModal(true)" class="text-cyan-600 dark:text-cyan-400 hover:underline font-semibold" data-i18n="footerModalBtn">
+                Mở Ghi chú nộp bài Coursera
+            </button>
+        </div>
+    </footer>
+
+    <!-- 6. MODAL: GHI CHÚ NỘP BÀI COURSERA (TIẾNG VIỆT & TIẾNG ANH) -->
+    <div id="submissionModal" class="fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-2xl w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <i class="ph-fill ph-notepad text-cyan-500 text-2xl"></i>
+                    <h3 class="font-extrabold text-lg text-slate-900 dark:text-white">Ghi chú nộp bài Coursera (Sao chép nhanh)</h3>
+                </div>
+                <button onclick="toggleSubmissionModal(false)" class="p-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800" aria-label="Đóng">
+                    <i class="ph-bold ph-x text-lg"></i>
+                </button>
+            </div>
+
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Bạn có thể chọn <strong>Sao chép bản Tiếng Việt</strong> hoặc <strong>Bản Tiếng Anh</strong> (hoặc cả hai) để dán vào ô bình luận mô tả bài thuyết trình trên Coursera:
+            </p>
+
+            <!-- Mẫu 1: Tiếng Việt -->
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">1. Bản mô tả Tiếng Việt (Chuẩn tự nhiên &amp; Bảo mật)</span>
+                    <button onclick="copyNoteText('noteVi', 'feedbackVi')" class="px-3 py-1 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center gap-1 transition">
+                        <i class="ph-bold ph-copy"></i> Sao chép Tiếng Việt
+                    </button>
+                </div>
+                <div id="noteVi" class="bg-slate-100 dark:bg-slate-950 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                    Xin chào các bạn học viên! Mình là Minh Quân, sinh viên ngành Thương mại Điện tử & Công nghệ Số tại Hà Nội, Việt Nam. Trong bài tập Giới thiệu bản thân (&lt; 3 phút) này, mình đã thiết kế một trang web Portfolio tương tác theo bố cục Bento Grid chuẩn HTML5 ngữ nghĩa, đáp ứng đa thiết bị (Mobile-First) và tiêu chuẩn tiếp cận (Accessibility). Trang web tóm tắt ngắn gọn kỹ năng phát triển web, phân tích nghiệp vụ (BA/Data), mục tiêu dự án Capstone sắp tới và sở thích cá nhân của mình trong khi vẫn đảm bảo an toàn thông tin cá nhân. Rất vui được cùng học tập và trao đổi với mọi người!
+                </div>
+                <div id="feedbackVi" class="text-xs text-emerald-500 font-semibold hidden">✓ Đã sao chép bản Tiếng Việt vào bộ nhớ tạm!</div>
+            </div>
+
+            <!-- Mẫu 2: Tiếng Anh (Dành cho bạn bè quốc tế cùng chấm chéo) -->
+            <div class="space-y-2 pt-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-500 dark:text-indigo-400">2. Bản Tiếng Anh (Dành cho học viên quốc tế chấm bài)</span>
+                    <button onclick="copyNoteText('noteEn', 'feedbackEn')" class="px-3 py-1 rounded-lg bg-indigo-500 hover:bg-indigo-400 text-white font-bold text-xs flex items-center gap-1 transition">
+                        <i class="ph-bold ph-copy"></i> Sao chép Tiếng Anh
+                    </button>
+                </div>
+                <div id="noteEn" class="bg-slate-100 dark:bg-slate-950 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                    Hi fellow learners! I'm Minh Quân, an E-Commerce & Digital Technology student based in Hanoi, Vietnam. For this "Introduce Yourself" (< 3 minutes) assignment, I built an interactive Bento-Grid Web Portfolio using semantic HTML5, responsive CSS, and accessible design standards (WCAG). It highlights my web development skills, Business & Data Analysis background, my 3-pillar Capstone project plan, and my hobbies while keeping personal information privacy-safe. Wishing everyone the best on your Capstone projects!
+                </div>
+                <div id="feedbackEn" class="text-xs text-emerald-500 font-semibold hidden">✓ Đã sao chép bản Tiếng Anh vào bộ nhớ tạm!</div>
+            </div>
+
+            <div class="flex justify-end pt-2">
+                <button onclick="toggleSubmissionModal(false)" class="px-5 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs sm:text-sm font-bold">
+                    Đóng cửa sổ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIC TƯƠNG TÁC JAVASCRIPT -->
+    <script>
+        // --- 1. TỪ ĐIỂN SONG NGỮ (TIẾNG VIỆT LÀM MẶC ĐỊNH 100%) ---
+        const i18nData = {
+            vi: {
+                navIntro: "Giới thiệu",
+                navSkills: "Kỹ năng",
+                navGoals: "Mục tiêu Capstone",
+                navHobbies: "Ngoài giờ học",
+                btnSubmissionNote: "Ghi chú nộp bài",
+                btnStartPitch: "Thuyết trình 90s",
+                btnStopPitch: "Dừng trình chiếu",
+                heroBadge: "Khóa học Thiết kế Web cho Mọi người • Dự án Cuối khóa",
+                heroTitle: "Xin chào, mình là Minh Quân.",
+                heroSubtitle: "Sinh viên Thương mại Điện tử & Công nghệ Số tại Hà Nội, Việt Nam.",
+                heroDesc: "Đam mê kết hợp giữa tư duy phân tích kinh doanh (Business Analysis), dữ liệu và giao diện web hiện đại, chuẩn khả năng tiếp cận (Accessibility). Trang web tương tác này được mình thiết kế dành riêng cho bài tập <strong>Giới thiệu bản thân (&lt; 3 phút)</strong> với tiêu chí trực quan, súc tích và bảo mật thông tin cá nhân.",
+                tagLocation: "📍 Hà Nội, Việt Nam",
+                tagMajor: "🎓 Thương mại điện tử & Công nghệ",
+                tagPrivacy: "🔒 Hồ sơ bảo mật (Privacy-Safe)",
+                statusBadge: "Trạng thái học tập",
+                statusText: "Đang thực hiện: Bài tập Giới thiệu bản thân (&lt; 3 phút)",
+                waveBtnText: "Gửi lời chào 👋",
+                skillsSectionBadge: "Kỹ năng & Công cụ chuyên môn",
+                skillsSectionTitle: "Nền tảng Kỹ thuật & Phân tích Nghiệp vụ",
+                skillsSectionSub: "Kết hợp Công nghệ Web & Thương mại Điện tử",
+                skillCard1Title: "Phát triển Web Chuẩn Mực",
+                skillCard1Desc: "HTML5 Ngữ nghĩa (Semantic), CSS3 Hiện đại (Grid/Flexbox), Thiết kế Đáp ứng (Responsive), Tiêu chuẩn Tiếp cận W3C (WCAG).",
+                skillCard2Title: "Thương mại Điện tử & Phân tích",
+                skillCard2Desc: "Phân tích Quy trình Kinh doanh (BPMN, Use Case), Trực quan hóa Dữ liệu (Python, SQL), Tối ưu Trải nghiệm Người dùng (UI/UX).",
+                skillCard3Title: "Nền tảng Lập trình",
+                skillCard3Desc: "Tư duy thuật toán C++, Python, JavaScript tương tác. Xây dựng cấu trúc mã nguồn rõ ràng, dễ bảo trì và tối ưu hiệu năng.",
+                capstoneBadge: "Định hướng Đồ án Cuối khóa",
+                capstoneTitle: "Kế hoạch Dự án Capstone của mình",
+                pillar1Title: "Chuẩn Ngữ nghĩa & Tiếp cận (Accessibility)",
+                pillar1Desc: "Đảm bảo 100% hỗ trợ đọc màn hình, điều hướng bàn phím và độ tương phản chuẩn quốc tế.",
+                pillar2Title: "Trải nghiệm Đa thiết bị (Mobile-First)",
+                pillar2Desc: "Tối ưu hóa bố cục mượt mà từ điện thoại thông minh, máy tính bảng đến màn hình lớn.",
+                pillar3Title: "Ứng dụng Thương mại Điện tử",
+                pillar3Desc: "Xây dựng giao diện trưng bày sản phẩm trực quan, tốc độ tải nhanh và thân thiện với người dùng.",
+                hobbyBadge: "Ngoài giờ học",
+                hobbySub: "Cân bằng & Kỷ luật",
+                hobbyTitle: "Sở thích & Phong cách sống",
+                hobby1Title: "Rèn luyện Thể hình (Gym & Fitness)",
+                hobby1Desc: "Duy trì kỷ luật tập luyện 4 buổi/tuần, đề cao sự kiên trì và cân bằng năng lượng cho những giờ lập trình chuyên sâu.",
+                hobby2Title: "Cờ tướng & Cờ vua",
+                hobby2Desc: "Rèn luyện tư duy chiến thuật, khả năng nhìn nhận toàn cục và phân tích tình huống logic.",
+                hobbyQuote: "\"Kỷ luật trong rèn luyện thể chất và tư duy chiến thuật chính là nền tảng để tạo ra những sản phẩm số chất lượng.\"",
+                footerNote: "Thiết kế cho Bài tập Giới thiệu bản thân - Khóa học Thiết kế Web cho Mọi người",
+                footerModalBtn: "Mở Ghi chú nộp bài Coursera"
+            },
+            en: {
+                navIntro: "About",
+                navSkills: "Skills",
+                navGoals: "Capstone Goals",
+                navHobbies: "Beyond Class",
+                btnSubmissionNote: "Submission Note",
+                btnStartPitch: "90s Pitch",
+                btnStopPitch: "Stop Pitch",
+                heroBadge: "Web Design for Everybody • Capstone Project",
+                heroTitle: "Hi there, I'm Minh Quân.",
+                heroSubtitle: "E-Commerce & Digital Technology Student in Hanoi, Vietnam.",
+                heroDesc: "Passionate about combining Business Analysis, data insights, and modern accessible web interfaces. I built this interactive portfolio for the <strong>Introduce Yourself (&lt; 3 mins)</strong> assignment with a focus on clarity and privacy-safe design.",
+                tagLocation: "📍 Hanoi, Vietnam",
+                tagMajor: "🎓 E-Commerce & Technology",
+                tagPrivacy: "🔒 Privacy-Safe Profile",
+                statusBadge: "Current Status",
+                statusText: "Working on: Introduce Yourself Assignment (&lt; 3 mins)",
+                waveBtnText: "Say Hello 👋",
+                skillsSectionBadge: "Professional Skills & Toolkit",
+                skillsSectionTitle: "Technical & Business Analysis Foundation",
+                skillsSectionSub: "Bridging Web Tech & E-Commerce",
+                skillCard1Title: "Standard-Compliant Web Dev",
+                skillCard1Desc: "Semantic HTML5, Modern CSS3 (Grid/Flexbox), Responsive Web Design, and W3C Accessibility Standards (WCAG).",
+                skillCard2Title: "E-Commerce & Business Analysis",
+                skillCard2Desc: "Business Process Modeling (BPMN, Use Case), Data Visualization (Python, SQL), and UI/UX Optimization.",
+                skillCard3Title: "Programming Foundations",
+                skillCard3Desc: "Algorithmic thinking with C++, Python, and interactive JavaScript. Clean, maintainable, and performant code.",
+                capstoneBadge: "Capstone Project Roadmap",
+                capstoneTitle: "My Capstone Project Plan",
+                pillar1Title: "Semantic & Accessible Design (WCAG)",
+                pillar1Desc: "Ensuring 100% screen-reader compatibility, keyboard navigation, and international contrast compliance.",
+                pillar2Title: "Mobile-First Multi-Device Experience",
+                pillar2Desc: "Optimizing fluid layouts seamlessly across smartphones, tablets, and desktop screens.",
+                pillar3Title: "E-Commerce Application",
+                pillar3Desc: "Building an intuitive, fast-loading, and user-friendly digital product showcase interface.",
+                hobbyBadge: "Beyond the Screen",
+                hobbySub: "Balance & Discipline",
+                hobbyTitle: "Hobbies & Lifestyle",
+                hobby1Title: "Gym & Fitness Training",
+                hobby1Desc: "Maintaining a disciplined 4-days/week workout routine, fostering perseverance and balanced energy.",
+                hobby2Title: "Xiangqi (Chinese Chess) & Chess",
+                hobby2Desc: "Sharpening tactical thinking, big-picture awareness, and logical situation analysis.",
+                hobbyQuote: "\"Discipline in physical training and tactical thinking is the foundation for crafting quality digital products.\"",
+                footerNote: "Crafted for the Introduce Yourself Assignment - Web Design for Everybody Capstone",
+                footerModalBtn: "Open Coursera Submission Note"
+            }
+        };
+
+        let currentLang = 'vi';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'vi' ? 'en' : 'vi';
+            document.getElementById('langLabel').textContent = currentLang.toUpperCase();
+            document.documentElement.lang = currentLang;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18nData[currentLang][key]) {
+                    el.innerHTML = i18nData[currentLang][key];
+                }
+            });
+
+            if (pitchActive) {
+                renderPitchStep();
+            }
+        }
+
+        // --- 2. NÚT TƯƠNG TÁC "GỬI LỜI CHÀO 👋" ---
+        let waveCount = 28;
+        function sendWaveGreeting() {
+            waveCount++;
+            document.getElementById('waveBadge').textContent = waveCount;
+            const toast = document.getElementById('waveToast');
+            toast.textContent = currentLang === 'vi'
+                ? `Cảm ơn bạn đã vẫy tay chào! (Lượt chào thứ #${waveCount}) 🌟`
+                : `Thanks for waving hello! (Greeting #${waveCount}) 🌟`;
+            toast.classList.remove('opacity-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 3200);
+        }
+
+        // --- 3. CHẾ ĐỘ THUYẾT TRÌNH TỰ ĐỘNG 90 GIÂY (< 3 PHÚT) ---
+        let pitchActive = false;
+        let pitchStep = 0;
+        let pitchTimer = null;
+
+        const pitchSteps = [
+            {
+                cardId: 'card-hero',
+                stepVi: 'Phần 1/4: Giới thiệu bản thân (0:00 - 0:20)',
+                narratorVi: 'Xin chào! Mình là Minh Quân, sinh viên Thương mại Điện tử & Công nghệ Số tại Hà Nội, Việt Nam.',
+                stepEn: 'Part 1/4: Introduction (0:00 - 0:20)',
+                narratorEn: 'Hi! I am Minh Quân, an E-Commerce & Digital Tech student in Hanoi, Vietnam.',
+                progress: '25%'
+            },
+            {
+                cardId: 'ky-nang',
+                stepVi: 'Phần 2/4: Kỹ năng & Công cụ (0:20 - 0:45)',
+                narratorVi: 'Mình kết hợp Phát triển Web chuẩn WCAG, Phân tích nghiệp vụ (BPMN, SQL, Python) và tư duy thuật toán.',
+                stepEn: 'Part 2/4: Skills & Toolkit (0:20 - 0:45)',
+                narratorEn: 'I combine Accessible Web Dev, Business Analysis (BPMN, SQL, Python), and algorithmic programming.',
+                progress: '50%'
+            },
+            {
+                cardId: 'muc-tieu-capstone',
+                stepVi: 'Phần 3/4: Kế hoạch Dự án Capstone (0:45 - 1:10)',
+                narratorVi: 'Dự án của mình tập trung vào 3 trụ cột: Chuẩn Accessibility, Mobile-First và Ứng dụng Thương mại Điện tử.',
+                stepEn: 'Part 3/4: Capstone Project Plan (0:45 - 1:10)',
+                narratorEn: 'My project focuses on 3 pillars: Accessibility, Mobile-First responsiveness, and E-Commerce UX.',
+                progress: '75%'
+            },
+            {
+                cardId: 'ngoai-gio-hoc',
+                stepVi: 'Phần 4/4: Sở thích & Phong cách sống (1:10 - 1:30)',
+                narratorVi: 'Ngoài giờ học, mình duy trì tập Gym 4 buổi/tuần và chơi Cờ tướng, Cờ vua để rèn tư duy chiến thuật.',
+                stepEn: 'Part 4/4: Hobbies & Lifestyle (1:10 - 1:30)',
+                narratorEn: 'Beyond class, I train at the gym 4 days/week and play Chess & Xiangqi to sharpen tactical thinking.',
+                progress: '100%'
+            }
+        ];
+
+        function clearPitchHighlights() {
+            document.querySelectorAll('.bento-card').forEach(el => {
+                el.classList.remove('pitch-highlight');
+            });
+        }
+
+        function renderPitchStep() {
+            clearPitchHighlights();
+            const current = pitchSteps[pitchStep];
+            const targetCard = document.getElementById(current.cardId);
+            if (targetCard) {
+                targetCard.classList.add('pitch-highlight');
+                targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            document.getElementById('pitchStepLabel').textContent = currentLang === 'vi' ? current.stepVi : current.stepEn;
+            document.getElementById('pitchNarrator').textContent = currentLang === 'vi' ? current.narratorVi : current.narratorEn;
+            document.getElementById('pitchProgress').style.width = current.progress;
+        }
+
+        function togglePitchMode() {
+            pitchActive = !pitchActive;
+            const banner = document.getElementById('pitchBanner');
+            const btnText = document.getElementById('pitchBtnText');
+            const btnIcon = document.getElementById('pitchIcon');
+
+            if (pitchActive) {
+                pitchStep = 0;
+                banner.classList.remove('hidden');
+                btnText.textContent = i18nData[currentLang].btnStopPitch;
+                btnIcon.className = 'ph-fill ph-stop-circle text-lg';
+                renderPitchStep();
+
+                pitchTimer = setInterval(() => {
+                    nextPitchStep();
+                }, 5500);
+            } else {
+                stopPitchPresentation();
+            }
+        }
+
+        function nextPitchStep() {
+            pitchStep++;
+            if (pitchStep >= pitchSteps.length) {
+                stopPitchPresentation();
+                sendWaveGreeting();
+                return;
+            }
+            renderPitchStep();
+        }
+
+        function stopPitchPresentation() {
+            pitchActive = false;
+            clearInterval(pitchTimer);
+            clearPitchHighlights();
+            document.getElementById('pitchBanner').classList.add('hidden');
+            document.getElementById('pitchBtnText').textContent = i18nData[currentLang].btnStartPitch;
+            document.getElementById('pitchIcon').className = 'ph-fill ph-play-circle text-lg';
+        }
+
+        // --- 4. CHẾ ĐỘ SÁNG / TỐI (DARK / LIGHT MODE) ---
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = 'ph-fill ph-moon text-lg text-slate-700';
+            } else {
+                html.classList.add('dark');
+                icon.className = 'ph-fill ph-sun text-lg text-amber-400';
+            }
+        }
+
+        // --- 5. MODAL GHI CHÚ NỘP BÀI COURSERA & SAO CHÉP ---
+        function toggleSubmissionModal(show) {
+            const modal = document.getElementById('submissionModal');
+            if (show) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function copyNoteText(elementId, feedbackId) {
+            const text = document.getElementById(elementId).innerText;
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            const feedback = document.getElementById(feedbackId);
+            feedback.classList.remove('hidden');
+            setTimeout(() => feedback.classList.add('hidden'), 2800);
+        }
+    </script>
+</body>
+</html>
